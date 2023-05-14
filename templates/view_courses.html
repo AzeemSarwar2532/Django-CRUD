@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Django CRUD - Courses{% endblock title %}
+
+{% block content %}
+<main>
+
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">All Courses</h1>
+          <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+          <p>
+            <a href="{% url 'add-course' %}" class="btn btn-success my-2"><i class="fa-solid fa-plus"></i> Add Course</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  
+    <div class="album py-5 bg-body-tertiary">
+      <div class="container">
+  
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for course in courses %}
+          <div class="col">
+            <div class="card shadow-sm">
+              <img src="{{ course.course_banner.url }}" class="card-img-top object-fit-cover" height="300">
+              <div class="card-body">
+                <h4 class="text-center">{{ course.course_name }}</h4>
+                <p class="card-text">{{ course.course_description|truncatechars:100 }} <a href="{% url 'course_detail' course.pk %}">Read More</a></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <a href="{% url 'course_detail' course.pk %}" type="button" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-eye"></i> View</a>
+                    <a href="{% url 'edit-course' course.pk %}" type="button" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+  
+  </main>
+{% endblock content %}

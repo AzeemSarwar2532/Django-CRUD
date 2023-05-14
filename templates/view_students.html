@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Django CRUD - Students{% endblock title %}
+{% block content %}
+    <div class="container my-5">
+        <h3 class="text-center my-5"><span class="border-bottom border-5">Here is the Student List</span></h3>
+        <table class="table table-stripped table-hover">
+            <tr>
+                <th>Student Image</th>
+                <th>FirstName</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th><a class="btn btn-sm btn-success" href="{% url 'add-student' %}"><i class="fa-solid fa-plus"></i> Add New</a></th>
+            </tr>
+            {% for student in students %}
+                <tr>
+                    <td>
+                        <img src="{{ student.student_image.url }}" class="rounded object-fit-cover" height="70" widht="45">
+                    </td>
+                    <td>{{ student.firstname }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.course }}</td>
+                    <td>{{ student.phone }}</td>
+                    <td>{{ student.city }}</td>
+                    <td>
+                        <a href="{% url 'edit-student' student.pk %}" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="{% url 'delete-student' student.pk %}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}

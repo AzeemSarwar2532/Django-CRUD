@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+{% with request.resolver_match.url_name as url_name %}
+{% if url_name == 'edit-course' %}
+Django CRUD - Update {{ course.course_name }}
+{% else %}
+Django CRUD - Add New Course
+{% endif %}
+{% endwith %}
+{% endblock title %}
+{% block content %}
+    <div class="container my-5">
+        {% with request.resolver_match.url_name as url_name %}
+        <h4 class="text-center">
+            {% if url_name == 'add-course' %}
+                Add New Course
+            {% else %}
+                Update Course 
+            {% endif %}
+        </h4>
+        {% endwith %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="v-stack mx-auto col-sm-6">
+                {{ form.course_name|as_crispy_field }}
+            </div>
+            <div class="v-stack mx-auto col-sm-6">
+                {{ form.course_code|as_crispy_field }}
+            </div>
+            <div class="v-stack mx-auto col-sm-6">
+                {{ form.course_banner|as_crispy_field }}
+            </div>
+            <div class="v-stack mx-auto col-sm-6">
+                {{ form.course_description|as_crispy_field }}
+            </div>
+            <div class="v-stack mx-auto col-sm-6 d-grid">
+                <button type="submit" class="btn btn-primary">Save Course</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

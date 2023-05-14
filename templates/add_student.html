@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+{% with request.resolver_match.url_name as url_name %}
+{% if url_name == 'edit-student' %}
+Django CRUD - Update {{ student.firstname}}'s Record
+{% else %}
+Django CRUD - Add New Student 
+{% endif %}
+{% endwith %}
+{% endblock title %}
+{% block content %}
+    <div class="container my-5 p-5 bg-body-secondary">
+        {% with request.resolver_match.url_name as url_name %}
+        <h4 class="text-center">
+            {% if url_name == 'edit-student' %}
+                Update {{ student.firstname}}'s Record
+            {% else %}
+                Add New Student 
+            {% endif %}
+        </h4>
+        {% endwith %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form.firstname|as_crispy_field }}        
+                </div>
+                <div class="col-sm-6">
+                    {{ form.lastname|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form.email|as_crispy_field }}        
+                </div>
+                <div class="col-sm-6">
+                    {{ form.course|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form.student_image|as_crispy_field }}        
+                </div>
+                <div class="col-sm-6">
+                    {{ form.city|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form.address|as_crispy_field }}        
+                </div>
+                <div class="col-sm-6">
+                    {{ form.phone|as_crispy_field }}
+                </div>
+            </div>
+            <div class="col-sm-6 v-stack mx-auto d-grid my-4">
+                <button type="submit" class="btn btn-primary">Save Student</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
